@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "gen-routes": {
+      "commandName": "Project",
+      "commandLineArgs": "-i C:\\Tmp\\GoodAddresses.csv -o C:\\tmp"
+    }
+  }
+}

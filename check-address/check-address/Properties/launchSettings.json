@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "check-address": {
+      "commandName": "Project",
+      "commandLineArgs": "-x C:\\Users\\citrit\\Downloads\\RecipientVerify.xlsx -o C:\\tmp"
+    }
+  }
+}

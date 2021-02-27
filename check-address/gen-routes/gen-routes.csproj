@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>gen_routes</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="CsvHelper" Version="25.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TDayLib\TDayLib.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Downloads\Auios.QuadTree-main\Auios.QuadTree\Auios.QuadTree.csproj" />
+  </ItemGroup>
+
+</Project>
