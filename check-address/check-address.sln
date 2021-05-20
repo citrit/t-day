@@ -5,11 +5,18 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "check-address", "check-address\check-address.csproj", "{F755242C-803A-4F36-9670-4E9FD171B7E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDayLib", "TDayLib\TDayLib.csproj", "{B12195F4-96C0-44CB-95DA-02A4FA8402FA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gen-routes", "gen-routes\gen-routes.csproj", "{5CD712CC-9D43-4534-BC03-86DFAE4758FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auios.QuadTree", "..\..\..\..\Downloads\Auios.QuadTree-main\Auios.QuadTree\Auios.QuadTree.csproj", "{EDB935B3-C961-48DB-ADEF-D2B94374A5D0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{AB55A3D4-93E3-4475-A55D-B6A2770BEF1E}"
+	ProjectSection(SolutionItems) = preProject
+		TDayDeliveryMap.html = TDayDeliveryMap.html
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDayLib", "TDayLib\TDayLib.csproj", "{4B23C2CD-0B82-4607-BAAA-592BADEED7C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gen-report", "gen-report\gen-report.csproj", "{03505EC6-D112-43E7-B492-C6FE1BD75383}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFExporter", "RTFExporter\RTFExporter.csproj", "{C4CEDBD2-0BC3-496D-925F-E605A0A77D45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +28,22 @@ Global
 		{F755242C-803A-4F36-9670-4E9FD171B7E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F755242C-803A-4F36-9670-4E9FD171B7E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F755242C-803A-4F36-9670-4E9FD171B7E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B12195F4-96C0-44CB-95DA-02A4FA8402FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B12195F4-96C0-44CB-95DA-02A4FA8402FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B12195F4-96C0-44CB-95DA-02A4FA8402FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B12195F4-96C0-44CB-95DA-02A4FA8402FA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5CD712CC-9D43-4534-BC03-86DFAE4758FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5CD712CC-9D43-4534-BC03-86DFAE4758FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CD712CC-9D43-4534-BC03-86DFAE4758FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CD712CC-9D43-4534-BC03-86DFAE4758FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EDB935B3-C961-48DB-ADEF-D2B94374A5D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EDB935B3-C961-48DB-ADEF-D2B94374A5D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EDB935B3-C961-48DB-ADEF-D2B94374A5D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EDB935B3-C961-48DB-ADEF-D2B94374A5D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B23C2CD-0B82-4607-BAAA-592BADEED7C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B23C2CD-0B82-4607-BAAA-592BADEED7C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B23C2CD-0B82-4607-BAAA-592BADEED7C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B23C2CD-0B82-4607-BAAA-592BADEED7C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03505EC6-D112-43E7-B492-C6FE1BD75383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03505EC6-D112-43E7-B492-C6FE1BD75383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03505EC6-D112-43E7-B492-C6FE1BD75383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03505EC6-D112-43E7-B492-C6FE1BD75383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4CEDBD2-0BC3-496D-925F-E605A0A77D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4CEDBD2-0BC3-496D-925F-E605A0A77D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4CEDBD2-0BC3-496D-925F-E605A0A77D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4CEDBD2-0BC3-496D-925F-E605A0A77D45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

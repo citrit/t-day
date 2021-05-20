@@ -1,0 +1,142 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Turkey Day Route Visualizer</title>
+    <script type='text/javascript' src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap' async defer></script>
+
+</head>
+<body onload="InitStuff()">
+    <div>
+        <!--<iframe width="1024" height="640" frameborder="0" src="https://www.bing.com/maps/embed?h=640&w=800&cp=42.802400000000006~-73.8795&lvl=11&typ=d&sty=r&src=SHELL&FORM=MBEDV8" scrolling="no">
+    </iframe>
+    <div style="white-space: nowrap; text-align: center; width: 800px; padding: 6px 0;">
+        <a id="largeMapLink" target="_blank" href="https://www.bing.com/maps?cp=42.802400000000006~-73.8795&amp;sty=r&amp;lvl=11&amp;FORM=MBEDLD">View Larger Map</a> &nbsp; | &nbsp;
+        <a id="dirMapLink" target="_blank" href="https://www.bing.com/maps/directions?cp=42.802400000000006~-73.8795&amp;sty=r&amp;lvl=11&amp;rtp=~pos.42.802400000000006_-73.8795____&amp;FORM=MBEDLD">Get Directions</a>
+    </div>-->
+        <div id="myMap" style="position:relative;left:20px;width:98%;top:20px;margin-bottom:-100px;"></div>
+
+        <input type="file" id="file-selector" accept=".txt" value="Select Deliveries", style="position: absolute; bottom: 10px;">
+        <pre id="output"></pre>
+        <div id="listOfPins" style="max-height:250px;width:250px;overflow-y:scroll;"></div>
+
+        <script type="text/javascript">var map, infobox;
+
+            document.getElementById('file-selector')
+                .addEventListener('change', function () {
+
+                    var fr = new FileReader();
+                    fr.onload = function () {
+                        //document.getElementById('output')
+                        //    .textContent = fr.result;
+
+                        Microsoft.Maps.loadModule("Microsoft.Maps.Clustering", function () {
+                            var lines = fr.result.split('\n');
+                            var pins = [];
+                            for (var jj = 0; jj < lines.length; jj++) {
+                                var vals = lines[jj].split(" ");
+                                if (vals[0] == "DeliverID:" && vals[3] != "0") {
+                                    var delID = vals[1];
+                                    var cnt = parseInt(vals[3]);
+                                    for (var ii = 0; ii < cnt; ii++) {
+                                        jj++;
+                                        vals = lines[jj].split(":");
+                                        vals = vals[1].split("|");
+                                        try {
+                                            var loc = new Microsoft.Maps.Location(parseFloat(vals[12]), parseFloat(vals[11]));
+                                        } catch (ex) {
+                                            continue;
+                                        }
+                                        var pin = new Microsoft.Maps.Pushpin(loc, {
+                                            title: delID,
+                                            subTitle: vals[0] + " " + vals[1]
+                                        });
+                                        pin.hoverData = vals[2] + " " + vals[3] + "," + vals[4] + "," + vals[5] + "," + vals[6];
+                                        //Microsoft.Maps.Events.addHandler(pin, 'mouseover', function (e) {
+                                        //    document.getElementById('output')
+                                        //        .textContent = "Address: " + e.target.hoverData;
+                                        //});
+                                        //Microsoft.Maps.Events.addHandler(pin, 'mouseout', function (e) {
+                                        //    document.getElementById('output')
+                                        //        .textContent = "";
+                                        //});
+                                        Microsoft.Maps.Events.addHandler(pin, 'click', pushpinClicked);
+
+
+                                        pins.push(pin);
+                                    }
+                                }
+                            }
+
+                            //Create a ClusterLayer and add it to the map.
+                            var clusterLayer = new Microsoft.Maps.ClusterLayer(pins, {
+                                clusteredPinCallback: createCustomClusterPushpins
+                            });
+                            map.layers.insert(clusterLayer);
+                        });
+                    }
+
+                    fr.readAsText(this.files[0]);
+                });
+
+            function InitStuff() {
+                map = new Microsoft.Maps.Map('#myMap', {
+                    credentials: "Aq03fYCDuaMZk0OxpH97nxHInqIsJDzab90p3twCHCk8CvlRoKjB4Xs5Msbgsvq6"
+                });
+                Microsoft.Maps.loadModule("Microsoft.Maps.Clustering");
+                //Add an infobox to the map.
+                infobox = new Microsoft.Maps.Infobox(map.getCenter(), { visible: false, maxWidth: 3000 });
+                infobox.setMap(map);
+            }
+
+            function pushpinClicked(e) {
+                //Show an infobox when a pushpin is clicked.
+                showInfobox(e.target);
+            }
+
+            function createCustomClusterPushpins(cluster) {
+                //Create a title for the cluster.
+                cluster.setOptions({
+                    title: 'Cluster of ' + cluster.containedPushpins.length + ' pins'
+                });
+
+                //Add handler for the cluster click event.
+                Microsoft.Maps.Events.addHandler(cluster, 'click', pushpinClicked);
+            }
+            function showInfoboxByGridKey(gridKey) {
+                //Look up the cluster or pushpin by gridKey.
+                var clusterPin = clusterLayer.getClusterPushpinByGridKey(gridKey);
+
+                //Show an infobox for the cluster or pushpin.
+                showInfobox(clusterPin);
+            }
+
+            function showInfobox(pin) {
+                var description = [];
+
+                //Check to see if the pushpin is a cluster.
+                description.push('<div style="max-height:75px;overflow-y:auto;"><ul>');
+                if (pin.containedPushpins) {
+
+                    //Create a list of all pushpins that are in the cluster.
+                    for (var i = 0; i < pin.containedPushpins.length; i++) {
+                        description.push('<li>', pin.containedPushpins[i].getTitle() + " " + pin.containedPushpins[i].getSubTitle() + ", " + pin.containedPushpins[i].hoverData, '</li>');
+                    }
+                }
+                else {
+                    description.push('<li>', pin.getTitle() + " " + pin.getSubTitle() + ", " + pin.hoverData, '</li>');
+                }
+                description.push('</ul></div>');
+
+                //Display an infobox for the pushpin.
+                infobox.setOptions({
+                    title: pin.getTitle(),
+                    location: pin.getLocation(),
+                    description: description.join(''),
+                    visible: true
+                });
+            }</script>
+    </div>
+</body>
+</html>
