@@ -5,18 +5,18 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "check-address", "check-address\check-address.csproj", "{F755242C-803A-4F36-9670-4E9FD171B7E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gen-routes", "gen-routes\gen-routes.csproj", "{5CD712CC-9D43-4534-BC03-86DFAE4758FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gen-routes", "gen-routes\gen-routes.csproj", "{5CD712CC-9D43-4534-BC03-86DFAE4758FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{AB55A3D4-93E3-4475-A55D-B6A2770BEF1E}"
 	ProjectSection(SolutionItems) = preProject
 		TDayDeliveryMap.html = TDayDeliveryMap.html
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDayLib", "TDayLib\TDayLib.csproj", "{4B23C2CD-0B82-4607-BAAA-592BADEED7C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TDayLib", "TDayLib\TDayLib.csproj", "{4B23C2CD-0B82-4607-BAAA-592BADEED7C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gen-report", "gen-report\gen-report.csproj", "{03505EC6-D112-43E7-B492-C6FE1BD75383}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gen-report", "gen-report\gen-report.csproj", "{03505EC6-D112-43E7-B492-C6FE1BD75383}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFExporter", "RTFExporter\RTFExporter.csproj", "{C4CEDBD2-0BC3-496D-925F-E605A0A77D45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTFExporter", "RTFExporter\RTFExporter.csproj", "{374A66C8-9EDC-47A8-88F8-B580DCBF5949}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +40,10 @@ Global
 		{03505EC6-D112-43E7-B492-C6FE1BD75383}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03505EC6-D112-43E7-B492-C6FE1BD75383}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03505EC6-D112-43E7-B492-C6FE1BD75383}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4CEDBD2-0BC3-496D-925F-E605A0A77D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4CEDBD2-0BC3-496D-925F-E605A0A77D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4CEDBD2-0BC3-496D-925F-E605A0A77D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4CEDBD2-0BC3-496D-925F-E605A0A77D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{374A66C8-9EDC-47A8-88F8-B580DCBF5949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{374A66C8-9EDC-47A8-88F8-B580DCBF5949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{374A66C8-9EDC-47A8-88F8-B580DCBF5949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{374A66C8-9EDC-47A8-88F8-B580DCBF5949}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

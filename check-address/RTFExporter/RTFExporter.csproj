@@ -3,28 +3,4 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="..\..\..\RTFExporter\RTFExporter\RTFTextStyle.cs">
-      <Link>RTFTextStyle.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\RTFExporter\RTFExporter\RTFText.cs">
-      <Link>RTFText.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\RTFExporter\RTFExporter\RTFParser.cs">
-      <Link>RTFParser.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\RTFExporter\RTFExporter\RTFParagraphStyle.cs">
-      <Link>RTFParagraphStyle.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\RTFExporter\RTFExporter\RTFParagraph.cs">
-      <Link>RTFParagraph.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\RTFExporter\RTFExporter\RTFDocument.cs">
-      <Link>RTFDocument.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\RTFExporter\RTFExporter\Color.cs">
-      <Link>Color.cs</Link>
-    </Compile>
-  </ItemGroup>
 </Project>
