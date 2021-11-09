@@ -44,6 +44,7 @@ namespace gen_routes
 
                 TDayAddress.GenerateRoutes(records, Path.GetDirectoryName(opts.inputFile), new MsgOut(DebugOut));
             }
+            Console.WriteLine($"Results written to {Path.GetDirectoryName(opts.inputFile) + "/Deliveries.txt"}");
         }
 
    }

@@ -10,6 +10,7 @@ using CsvHelper;
 using ExcelDataReader;
 using System.Collections.Concurrent;
 using Auios.QuadTree;
+using System.Net;
 
 namespace TDayLib
 {
@@ -19,26 +20,28 @@ namespace TDayLib
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string AptNum { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
-        public string Note { get; set; }
         public string HomePhone { get; set; }
         public string CellPHone { get; set; }
-        public string Code { get; set; }
+        public string DelDay { get; set; }
+        public int NumMeals { get; set; }
+        public string Notes { get; set; }
         public float Lon { get; set; }
         public float Lat { get; set; }
 
         public override string ToString()
         {
-            return $"{FirstName},{LastName},{Address1},{Address2},{City},{State},{Zip},{Note},{HomePhone},{CellPHone},{Code},{Lon},{Lat}";
+            return $"{FirstName},{LastName},{Address1},{AptNum},{Address2},{City},{State},{Zip},{HomePhone},{CellPHone},{DelDay},{NumMeals},{Notes},{Lon},{Lat}";
         }
 
         public string ToAddress()
         {
-            return $"{Address1},{Zip}";
+            return $"{Address1},{City},{State},{Zip} USA";
         }
 
         public static void ReadExcelFile(string excelFile, string outDir, ConcurrentBag<TDayAddress> goodAddr, ConcurrentBag<TDayAddress> badAddr, MsgOut msgOut)
@@ -50,7 +53,7 @@ namespace TDayLib
                     var dataSet = reader.AsDataSet();
                     // Now you can get data from each sheet by its index or its "name"
                     var dataTable = dataSet.Tables[0];
-                    int numCPU = Environment.ProcessorCount / 2;
+                    int numCPU = 1; // Environment.ProcessorCount / 2;
 
                     msgOut($"Processing on {numCPU} threads\n");
                     Parallel.ForEach(dataTable.Rows.OfType<DataRow>(), new ParallelOptions { MaxDegreeOfParallelism = numCPU }, (Row) =>
@@ -58,19 +61,27 @@ namespace TDayLib
                         // tblRecipient_Address, tblRecipient_Address1, tblRecipient_City, tblRecipient_State, tblRecipient_PostalCode
                         TDayAddress addr = new TDayAddress()
                         {
-                            FirstName = Row[0].ToString().Replace(","," "),
-                            LastName = Row[1].ToString().Replace(",", " "),
-                            Address1 = Row[2].ToString().Replace(",", " ").Replace("\n", " "),
-                            Address2 = Row[3].ToString().Replace(",", " ").Replace("\n", " "),
-                            City = Row[4].ToString().Replace(",", " "),
-                            State = Row[5].ToString().Replace(",", " "),
-                            Zip = "1" + Row[6].ToString().Remove(0, 1),
-                            HomePhone = Row[7].ToString(),
-                            CellPHone = Row[8].ToString()//,
-                            //Note = Row[9].ToString()
+                            FirstName = EatTheDamReturns(Row[0].ToString().Replace(",", " ")),
+                            LastName = EatTheDamReturns(Row[1].ToString().Replace(",", " ")),
+                            Address1 = EatTheDamReturns(Row[2].ToString().Replace(",", " ")),
+                            AptNum = EatTheDamReturns(Row[3].ToString().Replace(",", " ")),
+                            Address2 = EatTheDamReturns(Row[4].ToString().Replace(",", " ")),
+                            City = EatTheDamReturns(Row[5].ToString().Replace(",", " ")),
+                            State = EatTheDamReturns(Row[6].ToString().Replace(",", " ")),
+                            Zip = EatTheDamReturns(Row[7].ToString()),
+                            HomePhone = EatTheDamReturns(Row[8].ToString()),
+                            CellPHone = EatTheDamReturns(Row[9].ToString()),
+                            DelDay = EatTheDamReturns(Row[10].ToString()),
+                            NumMeals = 0,
+                            Notes = EatTheDamReturns(Row[12].ToString())
                         };
-                        //msgOut.WriteLine(addr);
-                        GeocodeAddress(addr, goodAddr, badAddr, msgOut).Wait();
+                        int numMeals = 0;
+                        if (int.TryParse(Row[11].ToString(), out numMeals))
+                        {
+                            addr.NumMeals = numMeals;
+                            //msgOut.WriteLine(addr);
+                            GeocodeAddress(addr, goodAddr, badAddr, msgOut).Wait();
+                        }
                         msgOut($"Procesed count: {goodAddr.Count + badAddr.Count}\r");
                     });
 
@@ -89,11 +100,22 @@ namespace TDayLib
             }
         }
 
+        private static string EatTheDamReturns(string str)
+        {
+            string ret = str;
+            int pos = str.IndexOf("\n");
+            if (pos > 0)
+            {
+                ret = str.Substring(0, pos);
+            }
+            return ret;
+        }
+
         private static async Task GeocodeAddress(TDayAddress addr, ConcurrentBag<TDayAddress> goodAddr, ConcurrentBag<TDayAddress> badAddr, MsgOut msgOut)
         {
             var bingKey = "Aq03fYCDuaMZk0OxpH97nxHInqIsJDzab90p3twCHCk8CvlRoKjB4Xs5Msbgsvq6";
 
-            //ServiceManager.Proxy = new WebProxy("http://newproxy.research.ge.com:80/");
+            ServiceManager.Proxy = new WebProxy("http://proxy.research.ge.com:80/");
 
             var request = new GeocodeRequest()
             {

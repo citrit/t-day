@@ -47,7 +47,9 @@ namespace checkaddress
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             TDayAddress.ReadExcelFile(opts.excelFile, Path.GetDirectoryName(opts.excelFile), goodAddr, badAddr, new MsgOut(DebugOut));
             sw.Stop();
+            string drcty = Path.GetDirectoryName(opts.excelFile);
             Console.WriteLine($"\nValidate addresses time: {sw.Elapsed}  with {goodAddr.Count} good and {badAddr.Count} failed addresses");
+            Console.WriteLine($"\nData written to {drcty + "/GoodAddresses.csv"} and {drcty + "/Badddresses.csv"}");
         }
     }
 }

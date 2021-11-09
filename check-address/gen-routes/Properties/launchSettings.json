@@ -2,7 +2,7 @@
   "profiles": {
     "gen-routes": {
       "commandName": "Project",
-      "commandLineArgs": "-i C:\\Tmp\\GoodAddresses.csv -o C:\\tmp"
+      "commandLineArgs": "-iC:\\Users\\citrit\\Downloads\\GoodAddresses.csv"
     }
   }
 }

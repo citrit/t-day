@@ -77,6 +77,7 @@ namespace RTFExporter
             str += "{\\nofpages1}";
             str += "{\\nofwords0}";
             str += "{\\nofchars0}";
+            str += "{\\deftab70}";
             str += "}";
 
             str += "{\\keywords ";
@@ -287,6 +288,7 @@ namespace RTFExporter
                     text.content = text.content.Replace("</i>", "\\i0 ");
                     text.content = text.content.Replace("<b>", "\\b ");
                     text.content = text.content.Replace("</b>", "\\b0 ");
+                    text.content = text.content.Replace(" ", "\\'20");
                     text.content = text.content.Replace("€", "\\'80");
                     text.content = text.content.Replace("‚", "\\'82");
                     text.content = text.content.Replace("ƒ", "\\'83");
@@ -413,7 +415,7 @@ namespace RTFExporter
                 }
 
                 str += "\\par ";
-                if (paragraph.PageBreak) str += " \\page";
+                if (paragraph.PageBreak) str += " \\page ";
             }
 
             return str;
