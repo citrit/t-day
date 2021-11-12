@@ -14,7 +14,7 @@ using System.Net;
 
 namespace TDayLib
 {
-    public delegate void MsgOut(string msg);
+    public delegate void MsgOut(string msg, bool status = false);
 
     public class TDayAddress
     {
@@ -53,7 +53,7 @@ namespace TDayLib
                     var dataSet = reader.AsDataSet();
                     // Now you can get data from each sheet by its index or its "name"
                     var dataTable = dataSet.Tables[0];
-                    int numCPU = Environment.ProcessorCount / 2;
+                    int numCPU = Environment.ProcessorCount - 1;
 
                     msgOut($"Processing on {numCPU} threads\n");
                     Parallel.ForEach(dataTable.Rows.OfType<DataRow>(), new ParallelOptions { MaxDegreeOfParallelism = numCPU }, (Row) =>
@@ -82,7 +82,7 @@ namespace TDayLib
                             //msgOut.WriteLine(addr);
                             GeocodeAddress(addr, goodAddr, badAddr, msgOut).Wait();
                         }
-                        msgOut($"Procesed count: {goodAddr.Count + badAddr.Count}\r");
+                        msgOut($"Procesed count: {goodAddr.Count + badAddr.Count}\r", true);
                     });
 
                     // Write out the addresses

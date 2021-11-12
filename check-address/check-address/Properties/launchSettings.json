@@ -2,7 +2,7 @@
   "profiles": {
     "check-address": {
       "commandName": "Project",
-      "commandLineArgs": "-x C:\\Users\\citrit\\Downloads\\recipientverify2021test.xlsx"
+      "commandLineArgs": "-x Z:\\Downloads\\extract-11092021.xlsx"
     }
   }
 }

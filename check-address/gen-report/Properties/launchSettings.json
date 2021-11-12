@@ -2,7 +2,7 @@
   "profiles": {
     "gen-report": {
       "commandName": "Project",
-      "commandLineArgs": "-d C:\\Users\\citrit\\Downloads\\Deliveries.txt"
+      "commandLineArgs": "-d Z:\\Downloads\\Deliveries.txt"
     }
   }
 }

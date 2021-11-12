@@ -14,7 +14,7 @@ using System.Net;
 
 namespace TDayLib
 {
-    public delegate void MsgOut(string msg);
+    public delegate void MsgOut(string msg, bool status = false);
 
     public class TDayAddress
     {
@@ -82,7 +82,7 @@ namespace TDayLib
                             //msgOut.WriteLine(addr);
                             GeocodeAddress(addr, goodAddr, badAddr, msgOut).Wait();
                         }
-                        msgOut($"Procesed count: {goodAddr.Count + badAddr.Count}\r");
+                        msgOut($"Procesed count: {goodAddr.Count + badAddr.Count}\r", true);
                     });
 
                     // Write out the addresses
