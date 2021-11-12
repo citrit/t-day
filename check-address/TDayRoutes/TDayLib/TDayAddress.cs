@@ -33,16 +33,19 @@ namespace TDayLib
         public string Notes { get; set; }
         public float Lon { get; set; }
         public float Lat { get; set; }
+        public string Restaurant { get; set; }
 
         public override string ToString()
         {
-            return $"{FirstName},{LastName},{Address1},{AptNum},{Address2},{City},{State},{Zip},{HomePhone},{CellPHone},{DelDay},{NumMeals},{Notes},{Lon},{Lat}";
+            return $"{FirstName},{LastName},{Address1},{AptNum},{Address2},{City},{State},{Zip},{HomePhone},{CellPHone},{DelDay},{NumMeals},{Notes},{Lon},{Lat},{Restaurant}";
         }
 
         public string ToAddress()
         {
             return $"{Address1},{City},{State},{Zip} USA";
         }
+
+        static DataTable zipToRest = null;
 
         public static void ReadExcelFile(string excelFile, string outDir, ConcurrentBag<TDayAddress> goodAddr, ConcurrentBag<TDayAddress> badAddr, MsgOut msgOut)
         {
@@ -53,7 +56,7 @@ namespace TDayLib
                     var dataSet = reader.AsDataSet();
                     // Now you can get data from each sheet by its index or its "name"
                     var dataTable = dataSet.Tables[0];
-                    int numCPU = Environment.ProcessorCount / 2;
+                    int numCPU = 15; // Environment.ProcessorCount - 2;
 
                     msgOut($"Processing on {numCPU} threads\n");
                     Parallel.ForEach(dataTable.Rows.OfType<DataRow>(), new ParallelOptions { MaxDegreeOfParallelism = numCPU }, (Row) =>
@@ -71,9 +74,9 @@ namespace TDayLib
                             Zip = EatTheDamReturns(Row[7].ToString()),
                             HomePhone = EatTheDamReturns(Row[8].ToString()),
                             CellPHone = EatTheDamReturns(Row[9].ToString()),
-                            DelDay = EatTheDamReturns(Row[10].ToString()),
+                            DelDay = EatTheDamReturns(Row[10].ToString().Replace(",", " ")),
                             NumMeals = 0,
-                            Notes = EatTheDamReturns(Row[12].ToString())
+                            Notes = EatTheDamReturns(Row[12].ToString().Replace(",", " "))
                         };
                         int numMeals = 0;
                         if (int.TryParse(Row[11].ToString(), out numMeals))
@@ -95,6 +98,22 @@ namespace TDayLib
                     using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                     {
                         csv.WriteRecords(badAddr);
+                    }
+                }
+            }
+        }
+
+        public static void LoadRestaurantZips(string zipfilename)
+        {
+            if (zipToRest == null)
+            {
+                using (Stream resFilestream = File.Open(zipfilename, FileMode.Open, FileAccess.Read))
+                {
+                    using (var reader = ExcelReaderFactory.CreateReader(resFilestream))
+                    {
+                        var dataSet = reader.AsDataSet();
+                        // Now you can get data from each sheet by its index or its "name"
+                        zipToRest = dataSet.Tables[0];
                     }
                 }
             }
@@ -146,6 +165,8 @@ namespace TDayLib
                 }
                 //var result = response.ResourceSets[0].Resources[0] as Location;
 
+                addr.Restaurant = GetRestaurant(addr.Zip);
+
                 if (foundAddr != null && foundAddr.MatchCodes[0].ToString() == "Good")
                 {
                     addr.Address1 = foundAddr.Address.AddressLine;
@@ -166,6 +187,20 @@ namespace TDayLib
                 }
                 //msgOut($"Geocode: {addr} => Results - Code: {result.MatchCodes[0]}\r");
             }
+        }
+
+        private static string GetRestaurant(string zip)
+        {
+            string ret = null;
+            var filtered = zipToRest.Select($"Column1 = {zip}");
+                //.AsEnumerable()
+                //    .Where(r => r.Field<int>("Column1").ToString().Contains(zip));
+            foreach (var row in filtered)
+            {
+                ret += row.Field<string>("Column2") + ", ";
+            }
+            
+            return (ret == null?$"Oops, did not find {zip}":ret);
         }
 
         // implement IQuadTreeObjectBounds<T> interface for your object type 
@@ -218,7 +253,7 @@ namespace TDayLib
                 foreach (var res in delivery.Value)
                 {
                     //msgOut($"\t Delivery: {res.ToString()}");
-                    sw.WriteLine($"\t Delivery: {res.ToString().Replace(",","|")}");
+                    sw.WriteLine($"\t Delivery^ {res.ToString().Replace(",","|")}");
                     delivertCnt++;
                 }    // do something with entry.Value or entry.Key
             }

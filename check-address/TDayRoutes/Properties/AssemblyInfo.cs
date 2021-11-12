@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TDayRoutes")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Equinox TDay Route Generator")]
+[assembly: AssemblyDescription("Equinox turkey Day generator is used to process the list of deliveries collected from the Turkey Hotline.\n\nUse the file menu to open the Excel file of deliveries and the resultant files will be written to the same folder.\n\nThe output is a list of good and bad delivery addresses, deliveries results from coordinating, and a final report that lists the delivery IDs, addresses, and meal counts.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TDayRoutes")]
+[assembly: AssemblyCompany("TDC Computing")]
+[assembly: AssemblyProduct("TDay Route Generator")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

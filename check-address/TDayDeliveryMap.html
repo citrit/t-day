@@ -41,10 +41,10 @@
                                     var cnt = parseInt(vals[3]);
                                     for (var ii = 0; ii < cnt; ii++) {
                                         jj++;
-                                        vals = lines[jj].split(":");
+                                        vals = lines[jj].split("^");
                                         vals = vals[1].split("|");
                                         try {
-                                            var loc = new Microsoft.Maps.Location(parseFloat(vals[13]), parseFloat(vals[12]));
+                                            var loc = new Microsoft.Maps.Location(parseFloat(vals[14]), parseFloat(vals[13]));
                                         } catch (ex) {
                                             continue;
                                         }

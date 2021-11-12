@@ -44,7 +44,7 @@ namespace TDayLib
             return $"{Address1},{City},{State},{Zip} USA";
         }
 
-        public static void ReadExcelFile(string excelFile, string outDir, ConcurrentBag<TDayAddress> goodAddr, ConcurrentBag<TDayAddress> badAddr, MsgOut msgOut)
+        public  void ReadExcelFile(string excelFile, string outDir, ConcurrentBag<TDayAddress> goodAddr, ConcurrentBag<TDayAddress> badAddr, MsgOut msgOut)
         {
             using (var stream = File.Open(excelFile, FileMode.Open, FileAccess.Read))
             {
@@ -61,22 +61,22 @@ namespace TDayLib
                         // tblRecipient_Address, tblRecipient_Address1, tblRecipient_City, tblRecipient_State, tblRecipient_PostalCode
                         TDayAddress addr = new TDayAddress()
                         {
-                            FirstName = EatTheDamReturns(Row[0].ToString().Replace(",", " ")),
-                            LastName = EatTheDamReturns(Row[1].ToString().Replace(",", " ")),
-                            Address1 = EatTheDamReturns(Row[2].ToString().Replace(",", " ")),
-                            AptNum = EatTheDamReturns(Row[3].ToString().Replace(",", " ")),
+                            FirstName = EatTheDamReturns(Row["tblRecipient_FirstName"].ToString().Replace(",", " ")),
+                            LastName = EatTheDamReturns(Row["tblRecipient_LastName"].ToString().Replace(",", " ")),
+                            Address1 = EatTheDamReturns(Row["tblRecipient_Address"].ToString().Replace(",", " ")),
+                            AptNum = EatTheDamReturns(Row["Apt No"].ToString().Replace(",", " ")),
                             Address2 = EatTheDamReturns(Row[4].ToString().Replace(",", " ")),
-                            City = EatTheDamReturns(Row[5].ToString().Replace(",", " ")),
-                            State = EatTheDamReturns(Row[6].ToString().Replace(",", " ")),
-                            Zip = EatTheDamReturns(Row[7].ToString()),
-                            HomePhone = EatTheDamReturns(Row[8].ToString()),
-                            CellPHone = EatTheDamReturns(Row[9].ToString()),
-                            DelDay = EatTheDamReturns(Row[10].ToString()),
+                            City = EatTheDamReturns(Row["tblRecipient_City"].ToString().Replace(",", " ")),
+                            State = EatTheDamReturns(Row["tblRecipient_State"].ToString().Replace(",", " ")),
+                            Zip = EatTheDamReturns(Row["tblRecipient_PostalCode"].ToString()),
+                            HomePhone = EatTheDamReturns(Row["tblRecipient_HomePhone"].ToString()),
+                            CellPHone = EatTheDamReturns(Row["tblRecipient_CellPhone"].ToString()),
+                            DelDay = EatTheDamReturns(Row["tblRecipient_Email"].ToString()),
                             NumMeals = 0,
-                            Notes = EatTheDamReturns(Row[12].ToString())
+                            Notes = EatTheDamReturns(Row["tblMealsRequested_Notes"].ToString())
                         };
                         int numMeals = 0;
-                        if (int.TryParse(Row[11].ToString(), out numMeals))
+                        if (int.TryParse(Row["tblMealsRequested_NumMeals"].ToString(), out numMeals))
                         {
                             addr.NumMeals = numMeals;
                             //msgOut.WriteLine(addr);

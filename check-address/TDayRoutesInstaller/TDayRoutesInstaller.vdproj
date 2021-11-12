@@ -958,12 +958,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_134C67DD84477069F273ECCA1CA21E72"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_27937D90ED136A60627F8028DF0130AC"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1801,6 +1795,12 @@
         "OwnerKey" = "8:_4BCC8151EE4F9FC179557D2936B0AA0D"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_134C67DD84477069F273ECCA1CA21E72"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -1819,6 +1819,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -1835,6 +1843,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -6261,6 +6285,17 @@
             "Property" = "8:ProgramMenuFolder"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_3F68DC23FD9E496ABBDBB3A0992E77DC"
+                    {
+                    "Name" = "8:Equinox"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_B11D1D7C09F041DBB79CF454ACD92CD5"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_8DF72971E08449E4BE0B1153C09DFB52"
@@ -6290,9 +6325,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:TDayRoutes"
+        "ProductName" = "8:Equinox Turkey Day Routes"
         "ProductCode" = "8:{9D696BDF-7FEF-4630-A77B-3BC09F8248F3}"
-        "PackageCode" = "8:{7F8F72EF-9419-405B-A3AC-0EF3B95E236C}"
+        "PackageCode" = "8:{AD014E80-4199-446E-A431-5526BC216B1B}"
         "UpgradeCode" = "8:{4B3BBE5F-4EA6-4DAB-BBCC-FBC5762723B8}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -6300,7 +6335,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:TDC Computing"
+        "Manufacturer" = "8:TDCComputing"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:Equinox TDay Route Generator"
@@ -6412,6 +6447,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_325B19C21A4E422CB72525B9234C4184"
+            {
+            "Name" = "8:Equinox TDay Route Generator"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_2C729DDFD91445839DC8FFD974ED9FB1"
+            "Folder" = "8:_3F68DC23FD9E496ABBDBB3A0992E77DC"
+            "WorkingFolder" = "8:_8DF72971E08449E4BE0B1153C09DFB52"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {

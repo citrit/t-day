@@ -27,9 +27,15 @@ namespace TDayRoutes
         private void generateRoutesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Title = "Select the Zip to Restaurant file";
             dlg.Filter = "Excel files(*.xlsx)| *.xlsx";
-            ;
 
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                TDayAddress.LoadRestaurantZips(dlg.FileName);
+            }
+
+            dlg.Title = "Select the Address file";
             string excelFile, filePath;
 
             if (dlg.ShowDialog() == DialogResult.OK)
@@ -62,7 +68,7 @@ namespace TDayRoutes
             sw.Stop();
             string drcty = System.IO.Path.GetDirectoryName(excelFile);
             DebugOut($"\nValidate addresses time: {sw.Elapsed}  with {goodAddr.Count} good and {badAddr.Count} failed addresses");
-            DebugOut($"\nData written to {drcty + "/GoodAddresses.csv"} and {drcty + "/Badddresses.csv"}");
+            DebugOut($"\nData written to {drcty + @"\GoodAddresses.csv"} and {drcty + @"\Badddresses.csv"}");
         }
 
         private void GenRoutes(string inputFile)
@@ -112,7 +118,7 @@ namespace TDayRoutes
                             t = p.AppendText("_".PadLeft(65, '_') + "\n");
                             t.style.fontFamily = "Courier New";
                             stpCnt++;
-                            vals = file.ReadLine().Split(':')[1].Split('|');
+                            vals = file.ReadLine().Split('^')[1].Split('|');
                             totMeals += numMeals = int.Parse(vals[11]);
                             t.content += $"{vals[0]} {vals[1]}" + sp(vals[0] + vals[1], rsp);
                             t.content += $"<b># of Meals: {numMeals}</b>\n";
@@ -122,6 +128,7 @@ namespace TDayRoutes
                             pn = vals[8] != "" ? String.Format("{0:(###)###-####}", Int64.Parse(vals[8])) : "";
                             t.content += $"  {vals[5]}, {vals[6]} {vals[7]}" + sp(vals[5] + vals[6] + vals[7], rsp - 3) + $"Cell: {pn}\n";
                             t.content += $"  Delivery Notes: {vals[12]}\n";
+                            t.content += $"  Restaurant: {vals[15]}\n";
                         }
                         t = p.AppendText("\n".PadRight(15, '=') + $" Meal Total: {totMeals} " + "\n\n".PadLeft(15, '='));
                         t.style.fontFamily = "Courier New";
@@ -144,7 +151,7 @@ namespace TDayRoutes
         }
 
 
-        private void DebugOut(string msg, bool status = false)
+        private  void DebugOut(string msg, bool status = false)
         {
             if (richTextBox1.InvokeRequired)
             {
@@ -168,6 +175,17 @@ namespace TDayRoutes
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void applicationHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TDayAbout tba = new TDayAbout();
+            tba.ShowDialog();
         }
     }
 }
