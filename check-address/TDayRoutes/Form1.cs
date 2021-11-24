@@ -1,4 +1,5 @@
-﻿using CsvHelper;
+﻿
+using CsvHelper;
 using RTFExporter;
 using System;
 using System.Collections.Concurrent;
@@ -41,20 +42,30 @@ namespace TDayRoutes
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 excelFile = dlg.FileName;
-                filePath = System.IO.Path.GetDirectoryName(excelFile);
+                filePath = System.IO.Path.ChangeExtension(excelFile, null);
                 DebugOut("Processing: " + excelFile);
                 Task.Run(() => {
-                    CheckAddresses(excelFile);
-                    GenRoutes(filePath + "/GoodAddresses.csv");
-                    GenReport(filePath + "/Deliveries.txt");
+                    try
+                    {
+                        CheckAddresses(excelFile, filePath);
+                        GenRoutes(filePath);
+                        GenReport(filePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugOut("Error: " + ex.ToString());
+                        if (ex.InnerException != null)
+                        {
+                            DebugOut("Inner: " + ex.InnerException.ToString());
+                        }
+                    }
                 });
-
                 //msgText.Buffer.Text += msgTextStr;
             }
         }
 
 
-        private void CheckAddresses(string excelFile)
+        private void CheckAddresses(string excelFile, string outPath)
         {
             DebugOut("Lets check some addresses!");
 
@@ -64,32 +75,31 @@ namespace TDayRoutes
             Stopwatch sw = new Stopwatch();
             sw.Start();
             System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            TDayAddress.ReadExcelFile(excelFile, System.IO.Path.GetDirectoryName(excelFile), goodAddr, badAddr, new MsgOut(DebugOut));
+            TDayAddress.ReadExcelFile(excelFile, outPath, goodAddr, badAddr, new MsgOut(DebugOut));
             sw.Stop();
-            string drcty = System.IO.Path.GetDirectoryName(excelFile);
             DebugOut($"\nValidate addresses time: {sw.Elapsed}  with {goodAddr.Count} good and {badAddr.Count} failed addresses");
-            DebugOut($"\nData written to {drcty + @"\GoodAddresses.csv"} and {drcty + @"\Badddresses.csv"}");
         }
 
-        private void GenRoutes(string inputFile)
+        private void GenRoutes(string inFilePAth)
         {
-            using (var reader = new StreamReader(inputFile))
+            using (var reader = new StreamReader(inFilePAth + "_GoodAddresses.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<TDayAddress>();
 
-                TDayAddress.GenerateRoutes(records, System.IO.Path.GetDirectoryName(inputFile), new MsgOut(DebugOut));
+                TDayAddress.GenerateRoutes(records, inFilePAth, new MsgOut(DebugOut));
             }
-            DebugOut($"Results written to {System.IO.Path.GetDirectoryName(inputFile) + "/Deliveries.txt"}");
         }
 
         private void GenReport(string deliveriesFile)
         {
-            System.IO.StreamReader file = new System.IO.StreamReader(deliveriesFile);
-            string fname = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(deliveriesFile), "DeliveriesReport.rtf");
+            System.IO.StreamReader file = new System.IO.StreamReader(deliveriesFile + "_Deliveries.txt");
+            string fname = deliveriesFile + "_DeliveriesReport.rtf";
             string line;
             int delCnt = 0;
             int stpCnt = 0;
+            int mealCnt = 0;
+            Dictionary<string, int> restCnt = new Dictionary<string, int>();
             using (RTFDocument doc = new RTFDocument(fname))
             {
                 doc.SetMargin(0.5F, 0.5F, 1.0F, 1.0F);
@@ -129,7 +139,16 @@ namespace TDayRoutes
                             t.content += $"  {vals[5]}, {vals[6]} {vals[7]}" + sp(vals[5] + vals[6] + vals[7], rsp - 3) + $"Cell: {pn}\n";
                             t.content += $"  Delivery Notes: {vals[12]}\n";
                             t.content += $"  Restaurant: {vals[15]}\n";
+                            if (restCnt.ContainsKey(vals[15]))
+                            {
+                                restCnt[vals[15]] = restCnt[vals[15]] + numMeals;
+                            }
+                            else
+                            {
+                                restCnt[vals[15]] = numMeals;
+                            }
                         }
+                        mealCnt += totMeals;
                         t = p.AppendText("\n".PadRight(15, '=') + $" Meal Total: {totMeals} " + "\n\n".PadLeft(15, '='));
                         t.style.fontFamily = "Courier New";
                         t.style.fontSize += 4;
@@ -137,7 +156,13 @@ namespace TDayRoutes
                     }
                 }
             }
-            DebugOut($"Processed {delCnt} deliveries with a total of {stpCnt} stops written to {fname}");
+            DebugOut($"\nProcessed {delCnt} deliveries with a total of {stpCnt} stops and {mealCnt} meals written to {fname}");
+            string restOut = "Restaurant counts: \n";
+            foreach (var pair in restCnt)
+            {
+                restOut += pair.Key + sp(pair.Key, 60) + $"\t=> {pair.Value}\n";
+            }
+            DebugOut(restOut);
         }
 
         private static string sp(string inStr, int cnt)

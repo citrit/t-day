@@ -61,21 +61,6 @@ namespace TDayRoutes.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 12186,12303,2Shea at Italian American Ctr,Monday,22-Nov,11:00,Schenectady
-        ///12193,12304,2Shea at Italian American Ctr,Monday,22-Nov,11:00,Schenectady
-        ///12303,12009,2Shea at Italian American Ctr,Tuesday,23-Nov,10:00,Altamont
-        ///12304,12023,2Shea at Italian American Ctr,Tuesday,23-Nov,10:00,Berne
-        ///12009,12059,2Shea at Italian American Ctr,Tuesday,23-Nov,10:00,E Berne
-        ///12023,12084,2Shea at Italian American Ctr,Tuesday,23-Nov,10:00,Guilderland
-        ///,12085,2Shea at Italian American Ctr,Tuesday,23-Nov,10:00,Guilderland C [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string zipcodelookup {
-            get {
-                return ResourceManager.GetString("zipcodelookup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         internal static string zipcodelookupstr {
