@@ -116,8 +116,8 @@ namespace TDayLib
                 addr.NumMeals = numMeals;
                 //msgOut.WriteLine(addr);
             }
-            GeocodeAddress(addr, goodAddr, badAddr, msgOut).Wait();
-            //GeocodeAddressGoogle(addr, goodAddr, badAddr, msgOut);
+            //GeocodeAddress(addr, goodAddr, badAddr, msgOut).Wait();
+            GeocodeAddressGoogle(addr, goodAddr, badAddr, msgOut);
             msgOut($"Procesed address: {goodAddr.Count + badAddr.Count} of {rowCnt} on thread: {Thread.CurrentThread.ManagedThreadId}\r", true);
         }
 
@@ -228,23 +228,30 @@ namespace TDayLib
             {
                 XElement result = xdoc.Element("GeocodeResponse").Element("result");
                 string [] vals = result.Element("formatted_address").ToString().Split(',');
-                string[] tmp = vals[2].TrimStart(' ').Split(' ');
-                vals[2] = tmp[0];
-                vals[3] = tmp[1];
-                //msgOut($"Addr: {addr.ToAddress()} Return: {addrFormat.ToString()}");
-
-                if (vals[3] != addr.Zip)
+                if (vals.Length > 3)
                 {
-                    msgOut($"Changed zip: {addr.ToAddress()} => {result.Element("formatted_address").ToString()}");
+                    string[] tmp = vals[2].TrimStart(' ').Split(' ');
+                    vals[2] = tmp[0];
+                    vals[3] = tmp[1];
+                    //msgOut($"Addr: {addr.ToAddress()} Return: {addrFormat.ToString()}");
+
+                    if (vals[3] != addr.Zip)
+                    {
+                        msgOut($"Changed zip: {addr.ToAddress()} => {result.Element("formatted_address").ToString()}");
+                    }
+                    XElement locationElement = result.Element("geometry").Element("location");
+                    addr.Address1 = vals[0];
+                    addr.City = vals[1];
+                    addr.State = vals[2];
+                    addr.Zip = vals[3];
+                    addr.Lat = float.Parse(locationElement.Element("lat").Value);
+                    addr.Lon = float.Parse(locationElement.Element("lng").Value);
+                    goodAddr.Add(addr);
                 }
-                XElement locationElement = result.Element("geometry").Element("location");
-                addr.Address1 = vals[0];
-                addr.City = vals[1];
-                addr.State = vals[2];
-                addr.Zip = vals[3];
-                addr.Lat = float.Parse(locationElement.Element("lat").Value);
-                addr.Lon = float.Parse(locationElement.Element("lng").Value);
-                goodAddr.Add(addr);
+                else
+                {
+                    badAddr.Add(addr);
+                }
             }
             else
             {
