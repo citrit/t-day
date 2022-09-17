@@ -139,12 +139,8 @@ namespace TDayLib
 
         private static string EatTheDamReturns(string str)
         {
-            string ret = str;
-            int pos = str.IndexOf("\n");
-            if (pos > 0)
-            {
-                ret = str.Substring(0, pos);
-            }
+            string ret = str.Replace("\n","");
+           
             return ret;
         }
 
@@ -226,11 +222,40 @@ namespace TDayLib
 
             if (xdoc.Element("GeocodeResponse").Element("status").Value == "OK")
             {
+
                 XElement result = xdoc.Element("GeocodeResponse").Element("result");
                 string [] vals = result.Element("formatted_address").ToString().Split(',');
                 if (vals.Length > 3)
                 {
-                    string[] tmp = vals[2].TrimStart(' ').Split(' ');
+                    IEnumerable<XElement> attrs =
+                        from el in result.Elements("address_component")
+                        select el;
+                    foreach (XElement el in attrs)
+                    {
+                        switch (el.Element("type").ToString())
+                        {
+                            case "premise":
+                                break;
+                            case "street_number":
+                                addr.Address1 = el.Element("short_name").ToString();
+                                break;
+                            case "route":
+                                addr.Address1 += " " + el.Element("short_name").ToString();
+                                break;
+                            case "neighborhood":
+                                break;
+                            case "locality":
+                                addr.City = el.Element("short_name").ToString();
+                                break;
+                            case "administrative_area_level_1":
+                                addr.State = el.Element("short_name").ToString();
+                                break;
+                            case "postal_code":
+                                addr.Zip = el.Element("short_name").ToString();
+                                break;
+                        }
+                    }
+                    /*string[] tmp = vals[2].TrimStart(' ').Split(' ');
                     vals[2] = tmp[0];
                     vals[3] = tmp[1];
                     //msgOut($"Addr: {addr.ToAddress()} Return: {addrFormat.ToString()}");
@@ -239,11 +264,13 @@ namespace TDayLib
                     {
                         msgOut($"Changed zip: {addr.ToAddress()} => {result.Element("formatted_address").ToString()}");
                     }
-                    XElement locationElement = result.Element("geometry").Element("location");
                     addr.Address1 = vals[0];
                     addr.City = vals[1];
                     addr.State = vals[2];
                     addr.Zip = vals[3];
+                    */
+
+                    XElement locationElement = result.Element("geometry").Element("location");
                     addr.Lat = float.Parse(locationElement.Element("lat").Value);
                     addr.Lon = float.Parse(locationElement.Element("lng").Value);
                     goodAddr.Add(addr);

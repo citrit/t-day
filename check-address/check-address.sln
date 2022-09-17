@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31005.135
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "check-address", "check-address\check-address.csproj", "{F755242C-803A-4F36-9670-4E9FD171B7E1}"
 EndProject
@@ -21,6 +21,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDayRoutes", "TDayRoutes\TDayRoutes.csproj", "{819E7260-B719-44AA-99BD-D6C2506BD78B}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TDayRoutesInstaller", "TDayRoutesInstaller\TDayRoutesInstaller.vdproj", "{0D9A7985-430A-42BC-A77A-7B6BDFDD1807}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TDayRouteInstaller", "TDayRouteInstaller\TDayRouteInstaller.vdproj", "{06144660-C50B-4F97-A0E5-0184E776C03D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,8 @@ Global
 		{819E7260-B719-44AA-99BD-D6C2506BD78B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D9A7985-430A-42BC-A77A-7B6BDFDD1807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D9A7985-430A-42BC-A77A-7B6BDFDD1807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06144660-C50B-4F97-A0E5-0184E776C03D}.Debug|Any CPU.ActiveCfg = Debug
+		{06144660-C50B-4F97-A0E5-0184E776C03D}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

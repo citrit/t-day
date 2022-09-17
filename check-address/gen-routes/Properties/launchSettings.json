@@ -2,7 +2,7 @@
   "profiles": {
     "gen-routes": {
       "commandName": "Project",
-      "commandLineArgs": "-iZ:\\Downloads\\GoodAddresses.csv"
+      "commandLineArgs": "-iC:\\Downloads\\GoodAddresses.csv"
     }
   }
 }

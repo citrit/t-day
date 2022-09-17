@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+{<result>
+	<type>premise</type>
+	<formatted_address>Schaffer Heights, 107 Nott Terrace, Schenectady, NY 12308, USA</formatted_address>
+	<address_component>
+		<long_name>Schaffer Heights</long_name>
+		<short_name>Schaffer Heights</short_name>
+		<type>premise</type>
+	</address_component>
+	<address_component>
+		<long_name>107</long_name>
+		<short_name>107</short_name>
+		<type>street_number</type>
+	</address_component>
+	<address_component>
+		<long_name>Nott Terrace</long_name>
+		<short_name>Nott Terrace</short_name>
+		<type>route</type>
+	</address_component>
+	<address_component>
+		<long_name>Vale &amp; Eastern Ave</long_name>
+		<short_name>Vale &amp; Eastern Ave</short_name>
+		<type>neighborhood</type>
+		<type>political</type>
+	</address_component>
+	<address_component>
+		<long_name>Schenectady</long_name>
+		<short_name>Schenectady</short_name>
+		<type>locality</type>
+		<type>political</type>
+	</address_component>
+	<address_component>
+		<long_name>Schenectady County</long_name>
+		<short_name>Schenectady County</short_name>
+		<type>administrative_area_level_2</type>
+		<type>political</type>
+	</address_component>
+	<address_component>
+		<long_name>New York</long_name>
+		<short_name>NY</short_name>
+		<type>administrative_area_level_1</type>
+		<type>political</type>
+	</address_component>
+	<address_component>
+		<long_name>United States</long_name>
+		<short_name>US</short_name>
+		<type>country</type>
+		<type>political</type>
+	</address_component>
+	<address_component>
+		<long_name>12308</long_name>
+		<short_name>12308</short_name>
+		<type>postal_code</type>
+	</address_component>
+	<address_component>
+		<long_name>3170</long_name>
+		<short_name>3170</short_name>
+		<type>postal_code_suffix</type>
+	</address_component>
+	<geometry>
+		<location>
+			<lat>42.8133861</lat>
+			<lng>-73.9327674</lng>
+		</location>
+		<location_type>ROOFTOP</location_type>
+		<viewport>
+			<southwest>
+				<lat>42.8121825</lat>
+				<lng>-73.9341094</lng>
+			</southwest>
+			<northeast>
+				<lat>42.8148805</lat>
+				<lng>-73.9314114</lng>
+			</northeast>
+		</viewport>
+		<bounds>
+			<southwest>
+				<lat>42.8132291</lat>
+				<lng>-73.9330678</lng>
+			</southwest>
+			<northeast>
+				<lat>42.8138339</lat>
+				<lng>-73.9324530</lng>
+			</northeast>
+		</bounds>
+	</geometry>
+	<place_id>ChIJqwu9Kf1t3okRbjxLu95gy40</place_id>
+</result>}
+
+-<result>
+
+	<type>postal_code</type>
+
+	<formatted_address>Albany, NY 12206, USA</formatted_address>
+
+
+	-<address_component>
+
+		<long_name>12206</long_name>
+
+		<short_name>12206</short_name>
+
+		<type>postal_code</type>
+
+	</address_component>
+
+
+	-<address_component>
+
+		<long_name>Albany</long_name>
+
+		<short_name>Albany</short_name>
+
+		<type>locality</type>
+
+		<type>political</type>
+
+	</address_component>
+
+
+	-<address_component>
+
+		<long_name>Albany County</long_name>
+
+		<short_name>Albany County</short_name>
+
+		<type>administrative_area_level_2</type>
+
+		<type>political</type>
+
+	</address_component>
+
+
+	-<address_component>
+
+		<long_name>New York</long_name>
+
+		<short_name>NY</short_name>
+
+		<type>administrative_area_level_1</type>
+
+		<type>political</type>
+
+	</address_component>
+
+
+	-<address_component>
+
+		<long_name>United States</long_name>
+
+		<short_name>US</short_name>
+
+		<type>country</type>
+
+		<type>political</type>
+
+	</address_component>
+
+
+	-<geometry>
+
+
+		-<location>
+
+			<lat>42.6757698</lat>
+
+			<lng>-73.7860276</lng>
+
+		</location>
+
+		<location_type>APPROXIMATE</location_type>
+
+
+		-<viewport>
+
+
+			-<southwest>
+
+				<lat>42.6579511</lat>
+
+				<lng>-73.8320331</lng>
+
+			</southwest>
+
+
+			-<northeast>
+
+				<lat>42.6941369</lat>
+
+				<lng>-73.7570121</lng>
+
+			</northeast>
+
+		</viewport>
+
+
+		-<bounds>
+
+
+			-<southwest>
+
+				<lat>42.6579511</lat>
+
+				<lng>-73.8320331</lng>
+
+			</southwest>
+
+
+			-<northeast>
+
+				<lat>42.6941369</lat>
+
+				<lng>-73.7570121</lng>
+
+			</northeast>
+
+		</bounds>
+
+	</geometry>
+
+	<partial_match>true</partial_match>
+
+	<place_id>ChIJAXwIRS0K3okRCHYwVgVo1Hw</place_id>
+
+</result>
