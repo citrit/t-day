@@ -123,29 +123,34 @@ namespace TDayRoutes
                         int numMeals = 0;
                         int totMeals = 0;
                         var rand = new Random();
+                        var valList = new List<string[]>();
                         for (int ii = 0; ii < cnt; ii++)
                         {
+                            valList.Add(file.ReadLine().Split('^')[1].Split('|'));
+                        }
+                        valList.Sort((a, b) => a[3].CompareTo(b[3]));
+                        foreach (var val in valList)
+                        { 
                             t = p.AppendText("_".PadLeft(65, '_') + "\n");
                             t.style.fontFamily = "Courier New";
                             stpCnt++;
-                            vals = file.ReadLine().Split('^')[1].Split('|');
-                            totMeals += numMeals = int.Parse(vals[11]);
-                            t.content += $"{vals[0]} {vals[1]}" + sp(vals[0] + vals[1], rsp);
+                            totMeals += numMeals = int.Parse(val[11]);
+                            t.content += $"{val[0]} {val[1]}" + sp(val[0] + val[1], rsp);
                             t.content += $"<b># of Meals: {numMeals}</b>\n";
-                            t.content += $"  {vals[2]} {vals[3]}" + sp(vals[2] + vals[3], rsp - 1) + "Phone Numbers:\n";
-                            string pn = vals[9] != "" ? String.Format("{0:(###) ###-####}", Int64.Parse(vals[9])) : "";
-                            t.content += $"  {vals[4]}" + sp(vals[4], rsp) + $"Home: {pn}\n";
-                            pn = vals[8] != "" ? String.Format("{0:(###)###-####}", Int64.Parse(vals[8])) : "";
-                            t.content += $"  {vals[5]}, {vals[6]} {vals[7]}" + sp(vals[5] + vals[6] + vals[7], rsp - 3) + $"Cell: {pn}\n";
-                            t.content += $"  Delivery Notes: {vals[12]}\n";
-                            t.content += $"  Restaurant: {vals[15]}\n";
-                            if (restCnt.ContainsKey(vals[15]))
+                            t.content += $"  {val[2]} {val[3]}" + sp(val[2] + val[3], rsp - 1) + "Phone Numbers:\n";
+                            string pn = val[9] != "" ? String.Format("{0:(###) ###-####}", Int64.Parse(val[9])) : "";
+                            t.content += $"  {val[4]}" + sp(val[4], rsp) + $"Home: {pn}\n";
+                            pn = val[8] != "" ? String.Format("{0:(###)###-####}", Int64.Parse(val[8])) : "";
+                            t.content += $"  {val[5]}, {val[6]} {val[7]}" + sp(val[5] + val[6] + val[7], rsp - 3) + $"Cell: {pn}\n";
+                            t.content += $"  Delivery Notes: {val[12]}\n";
+                            t.content += $"  Restaurant: {val[15]}\n";
+                            if (restCnt.ContainsKey(val[15]))
                             {
-                                restCnt[vals[15]] = restCnt[vals[15]] + numMeals;
+                                restCnt[val[15]] = restCnt[val[15]] + numMeals;
                             }
                             else
                             {
-                                restCnt[vals[15]] = numMeals;
+                                restCnt[val[15]] = numMeals;
                             }
                         }
                         mealCnt += totMeals;
