@@ -137,7 +137,7 @@ namespace RTFExporter
     /// <param name="height">the height of the page</param>
     /// <param name="orientation">the page orientation</param>
     /// <param name="units">the measure units of the page</param>
-    public RTFDocument(float width = 8, float height = 11, Orientation orientation = Orientation.Portrait, Units units = Units.Inch)
+    public RTFDocument(float width = 8.5F, float height = 11, Orientation orientation = Orientation.Portrait, Units units = Units.Inch)
     {
       Init(width, height, orientation, units);
     }

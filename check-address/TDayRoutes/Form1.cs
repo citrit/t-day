@@ -100,7 +100,7 @@ namespace TDayRoutes
             int stpCnt = 0;
             int mealCnt = 0;
             Dictionary<string, int> restCnt = new Dictionary<string, int>();
-            using (RTFDocument doc = new RTFDocument(fname))
+            using (RTFDocument doc = new RTFDocument(fname,8.5F))
             {
                 doc.SetMargin(0.5F, 0.5F, 1.0F, 1.0F);
                 while ((line = file.ReadLine()) != null)
